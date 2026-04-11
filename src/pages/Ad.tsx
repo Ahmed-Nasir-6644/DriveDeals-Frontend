@@ -13,11 +13,6 @@ const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
   reconnectionAttempts: 10,
-  polling: {
-    extraHeaders: {
-      'X-Custom-Header': 'value'
-    }
-  }
 });
 
 interface Ad {
