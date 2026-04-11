@@ -95,7 +95,12 @@ const ChatPage: React.FC = () => {
 
   // Socket initialization
   useEffect(() => {
-    const newSocket: Socket = io(`${import.meta.env.VITE_BACKEND_URL}`, { transports: ["websocket"] });
+    const newSocket: Socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionAttempts: 5,
+    });
     setSocket(newSocket);
 
     return () => {

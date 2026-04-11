@@ -6,7 +6,12 @@ import ChatButton from "../components/chatButton";
 import { useAuth } from "../context/AuthContext";
 // socket client
 import { io } from "socket.io-client";
-const socket = io(`${import.meta.env.VITE_BACKEND_URL}`);
+const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
+  transports: ['websocket', 'polling'],
+  reconnection: true,
+  reconnectionDelay: 1000,
+  reconnectionAttempts: 5,
+});
 
 interface Ad {
   id: number;
