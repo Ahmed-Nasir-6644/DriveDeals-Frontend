@@ -257,12 +257,6 @@ export default function MyAdsPage() {
     setCurrentStep(1);
   };
 
-  const isStep1Valid = newAd.make && newAd.model && newAd.color;
-  const isStep2Valid = newAd.fuel_type && newAd.transmission && newAd.engine_capacity > 0;
-  const isStep3Valid = newAd.location && newAd.price > 0;
-  const isStep4Valid = newAd.files.length > 0;
-  const isStep5Valid = newAd.description;
-
   return (
     <main className={styles.container}>
       <section className={styles.header}>

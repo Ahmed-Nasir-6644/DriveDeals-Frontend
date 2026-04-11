@@ -100,7 +100,7 @@ const ChatList: React.FC = () => {
         setUserId(data.id);
         setUserCache((prev) => ({ ...prev, [data.id]: data }));
       })
-      .catch((err) => {
+      .catch(() => {
         setLoading(false);
       });
   }, [email]);
@@ -150,7 +150,7 @@ const ChatList: React.FC = () => {
         });
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setLoading(false);
       });
   }, [userId]);

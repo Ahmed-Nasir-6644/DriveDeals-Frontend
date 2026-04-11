@@ -134,7 +134,6 @@ export default function BrowseCars() {
   const {
     makes,
     modelsByMake,
-    locations,
     fuels,
     transmissions,
     bodyTypes,

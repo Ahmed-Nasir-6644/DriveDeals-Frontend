@@ -14,7 +14,6 @@ interface Ad {
 
 const HomePage: React.FC = () => {
   const [recentAds, setRecentAds] = useState<Ad[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
