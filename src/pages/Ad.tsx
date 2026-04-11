@@ -6,11 +6,18 @@ import ChatButton from "../components/chatButton";
 import { useAuth } from "../context/AuthContext";
 // socket client
 import { io } from "socket.io-client";
+const isProduction = import.meta.env.VITE_BACKEND_URL?.includes('.vercel.app');
 const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
-  transports: ['websocket', 'polling'],
+  transports: isProduction ? ['polling', 'websocket'] : ['websocket', 'polling'],
   reconnection: true,
   reconnectionDelay: 1000,
-  reconnectionAttempts: 5,
+  reconnectionDelayMax: 5000,
+  reconnectionAttempts: 10,
+  polling: {
+    extraHeaders: {
+      'X-Custom-Header': 'value'
+    }
+  }
 });
 
 interface Ad {

@@ -95,11 +95,13 @@ const ChatPage: React.FC = () => {
 
   // Socket initialization
   useEffect(() => {
+    const isProduction = import.meta.env.VITE_BACKEND_URL?.includes('.vercel.app');
     const newSocket: Socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
-      transports: ['websocket', 'polling'],
+      transports: isProduction ? ['polling', 'websocket'] : ['websocket', 'polling'],
       reconnection: true,
       reconnectionDelay: 1000,
-      reconnectionAttempts: 5,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: 10,
     });
     setSocket(newSocket);
 
