@@ -1,0 +1,713 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 0;
+  margin: 0;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+  background: linear-gradient(135deg, #090979 0%, #2534b3 50%, #0652a9 100%);
+  padding: 80px 40px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(9, 9, 121, 0.3);
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.headerContent {
+  position: relative;
+  z-index: 1;
+  animation: slideDown 0.8s ease-out;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+  letter-spacing: -1px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 15px 0 0 0;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== MISSION SECTION ==================== */
+.missionSection {
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: -30px auto 0;
+  position: relative;
+  z-index: 2;
+}
+
+.missionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.missionCard {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.missionCard:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.missionCard:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.missionCard:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.missionCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(9, 9, 121, 0.2);
+  border-top: 4px solid #090979;
+}
+
+.missionIcon {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  display: block;
+  color: #090979;
+}
+
+.missionCard h3 {
+  font-size: 1.5rem;
+  color: #090979;
+  margin: 15px 0;
+  font-weight: 700;
+}
+
+.missionCard p {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== STATS SECTION ==================== */
+.statsSection {
+  background: linear-gradient(135deg, #090979 0%, #2534b3 50%, #0652a9 100%);
+  padding: 80px 40px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.statsSection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.statsTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 50px 0;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.statCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 40px 30px;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+  animation: scaleIn 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.statCard:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.statCard:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.statCard:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.statCard:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.statCard:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.statNumber {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffd700;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.statLabel {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==================== SERVICES SECTION ==================== */
+.services {
+  padding: 80px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #090979;
+  margin: 0 0 20px 0;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.services h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #090979, #0652a9);
+  border-radius: 4px;
+  animation: expandWidth 0.8s ease-out;
+}
+
+@keyframes expandWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: 60px;
+  }
+}
+
+.servicesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.serviceItem {
+  background: white;
+  padding: 35px 25px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+  border-top: 4px solid transparent;
+}
+
+.serviceItem:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.serviceItem:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.serviceItem:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.serviceItem:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.serviceItem:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.serviceItem:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.serviceItem:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(9, 9, 121, 0.15);
+  border-top-color: #0652a9;
+}
+
+.serviceIcon {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  display: block;
+  animation: bounce 2s infinite;
+  color: #0652a9;
+}
+
+.serviceItem:nth-child(1) .serviceIcon {
+  animation-delay: 0s;
+}
+
+.serviceItem:nth-child(2) .serviceIcon {
+  animation-delay: 0.1s;
+}
+
+.serviceItem:nth-child(3) .serviceIcon {
+  animation-delay: 0.2s;
+}
+
+.serviceItem:nth-child(4) .serviceIcon {
+  animation-delay: 0.3s;
+}
+
+.serviceItem:nth-child(5) .serviceIcon {
+  animation-delay: 0.4s;
+}
+
+.serviceItem:nth-child(6) .serviceIcon {
+  animation-delay: 0.5s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.serviceItem h3 {
+  font-size: 1.3rem;
+  color: #090979;
+  margin: 15px 0;
+  font-weight: 700;
+}
+
+.serviceItem p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==================== LOCATION SECTION ==================== */
+.location {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, rgba(9, 9, 121, 0.05) 0%, rgba(6, 82, 169, 0.05) 100%);
+}
+
+.location h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #090979;
+  margin: 0 0 15px 0;
+}
+
+.locationDesc {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.mapContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(9, 9, 121, 0.2);
+  animation: scaleIn 0.8s ease-out;
+}
+
+.mapContainer iframe {
+  display: block;
+  border: none;
+}
+
+/* ==================== TEAM SECTION ==================== */
+.team {
+  padding: 80px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #090979;
+  margin: 0 0 15px 0;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.team h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #090979, #0652a9);
+  border-radius: 4px;
+  animation: expandWidth 0.8s ease-out;
+}
+
+.teamDescription {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
+  margin: 40px 0 50px 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.teamMember {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+  position: relative;
+  overflow: hidden;
+}
+
+.teamMember::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(9, 9, 121, 0.05), transparent);
+  transition: left 0.5s ease;
+}
+
+.teamMember:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.teamMember:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.teamMember:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.teamMember:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(9, 9, 121, 0.2);
+}
+
+.teamMember:hover::before {
+  left: 100%;
+}
+
+.memberAvatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.avatarInitial {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: white;
+  background: linear-gradient(135deg, #2534b3 0%, #0652a9 100%);
+  box-shadow: 0 5px 20px rgba(9, 9, 121, 0.3);
+  position: relative;
+  animation: scaleIn 0.6s ease-out;
+}
+
+.teamMember:nth-child(1) .avatarInitial {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e72 100%);
+}
+
+.teamMember:nth-child(2) .avatarInitial {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.teamMember:nth-child(3) .avatarInitial {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.teamMember h3 {
+  font-size: 1.4rem;
+  color: #090979;
+  margin: 15px 0 5px 0;
+  font-weight: 700;
+}
+
+.role {
+  color: #2534b3;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 5px 0 20px 0 !important;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.socialLinks a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #090979;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.socialLinks a:hover {
+  transform: translateY(-3px) scale(1.1);
+  background: linear-gradient(135deg, #090979 0%, #2534b3 100%);
+  color: white;
+  box-shadow: 0 5px 15px rgba(9, 9, 121, 0.3);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .header {
+    padding: 60px 30px 40px;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .missionSection {
+    padding: 40px 20px;
+  }
+
+  .missionGrid {
+    gap: 20px;
+  }
+
+  .statsSection {
+    padding: 60px 20px;
+  }
+
+  .statsTitle {
+    font-size: 2rem;
+  }
+
+  .statGrid {
+    gap: 20px;
+  }
+
+  .statNumber {
+    font-size: 2rem;
+  }
+
+  .services {
+    padding: 60px 20px;
+  }
+
+  .services h2 {
+    font-size: 2rem;
+  }
+
+  .servicesList {
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+
+  .location {
+    padding: 60px 20px;
+  }
+
+  .location h2 {
+    font-size: 2rem;
+  }
+
+  .team {
+    padding: 60px 20px;
+  }
+
+  .team h2 {
+    font-size: 2rem;
+  }
+
+  .teamGrid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .avatarInitial {
+    width: 80px;
+    height: 80px;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .missionCard {
+    padding: 25px 15px;
+  }
+
+  .statCard {
+    padding: 30px 15px;
+  }
+
+  .serviceItem {
+    padding: 25px 15px;
+  }
+
+  .serviceIcon {
+    font-size: 2.2rem;
+  }
+
+  .socialLinks {
+    gap: 12px;
+  }
+
+  .socialLinks a {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}

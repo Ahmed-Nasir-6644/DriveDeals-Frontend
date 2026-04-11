@@ -1,0 +1,45 @@
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 900px; /* max image width */
+  margin: 2rem auto; /* center horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainImage {
+  width: 100%;
+  max-height: 500px;
+  object-fit:contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.leftBtn,
+.rightBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 2rem;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.leftBtn {
+  left: 10px;
+}
+
+.rightBtn {
+  right: 10px;
+}
+
+.leftBtn:hover,
+.rightBtn:hover {
+  background: rgba(0,0,0,0.8);
+}
