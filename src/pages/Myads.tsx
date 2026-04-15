@@ -240,6 +240,22 @@ export default function MyAdsPage() {
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = Array.from(e.target.files);
+      
+      // Limit to 10 images maximum
+      if (files.length > 10) {
+        alert("Maximum 10 images allowed");
+        return;
+      }
+
+      // Validate file sizes (max 5MB per image)
+      const maxFileSize = 5 * 1024 * 1024; // 5MB
+      const invalidFiles = files.filter(f => f.size > maxFileSize);
+      
+      if (invalidFiles.length > 0) {
+        alert(`Some files exceed 5MB limit. Please compress your images.`);
+        return;
+      }
+
       const previews = files.map((file) => URL.createObjectURL(file));
       setImagePreviews(previews);
       setNewAd((prev) => ({
@@ -663,7 +679,7 @@ export default function MyAdsPage() {
                   <p className={styles.sectionDescription}>Upload photos and select features</p>
 
                   <div className={styles.formGroup}>
-                    <label>Upload Car Images (min 1) *</label>
+                    <label>Upload Car Images (min 1, max 10) *</label>
                     <div className={styles.imageUploadBox}>
                       <input
                         type="file"
@@ -676,7 +692,7 @@ export default function MyAdsPage() {
                       <label htmlFor="imageInput" className={styles.imageUploadLabel}>
                         <div className={styles.uploadIcon}>📸</div>
                         <p>Click to upload or drag & drop</p>
-                        <span>JPG, PNG up to 10MB each</span>
+                        <span>JPG, PNG up to 5MB each (max 10 images)</span>
                       </label>
                     </div>
 
