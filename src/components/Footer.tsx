@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Footer.module.css";
 import { useAuth } from "../context/AuthContext";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaArrowRight } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   const { email } = useAuth();
   const [loggedInUserId, setLoggedInUserId] = useState<number | null>(null);
+  const [newsletter, setNewsletter] = useState("");
 
   // Fetch logged-in user ID
   useEffect(() => {
@@ -16,50 +18,140 @@ const Footer: React.FC = () => {
       .catch((err) => console.error("Error fetching logged-in user:", err));
   }, [email]);
 
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Newsletter subscription logic here
+    alert(`Subscribed with ${newsletter}`);
+    setNewsletter("");
+  };
+
   return (
     <footer className={styles.footer}>
-      <div className={styles.container}>
-        <div className={styles.left}>
-          <h2 className={styles.logo}>DriveDeals</h2>
-          <p className={styles.tagline}>
-            Buy & Sell Cars Easily with Trust and Transparency
-          </p>
+      {/* Newsletter Section */}
+      <section className={styles.newsletterSection}>
+        <div className={styles.newsletterContent}>
+          <h2>Stay Updated with Latest Cars</h2>
+          <p>Get exclusive deals and updates delivered to your inbox</p>
+          <form onSubmit={handleNewsletterSubmit} className={styles.newsletterForm}>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={newsletter}
+              onChange={(e) => setNewsletter(e.target.value)}
+              required
+              className={styles.newsletterInput}
+            />
+            <button type="submit" className={styles.newsletterButton}>
+              Subscribe <FaArrowRight />
+            </button>
+          </form>
         </div>
+      </section>
 
-        <div className={styles.center}>
-          <h3>Quick Links</h3>
-          <ul>
-            <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a href="/browse">Browse Cars</a>
-            </li>
-            {loggedInUserId ? (
-              <li>
-                <a href="/myAds">Post an Ad</a>
-              </li>
-            ) : (
-              <li>
-                <a href="/login">Post an Ad</a>
-              </li>
-            )}
-            <li>
-              <a href="/AboutUs">About Us</a>
-            </li>
-          </ul>
-        </div>
+      {/* Main Footer Content */}
+      <div className={styles.mainContent}>
+        <div className={styles.container}>
+          {/* Brand Section */}
+          <div className={styles.section}>
+            <h2 className={styles.logo}>DriveDeals</h2>
+            <p className={styles.tagline}>
+              Your trusted platform for buying and selling cars in Pakistan with transparency and trust.
+            </p>
+            <div className={styles.socialLinks}>
+              <a href="#" title="Facebook" className={styles.socialIcon}>
+                <FaFacebook />
+              </a>
+              <a href="#" title="Twitter" className={styles.socialIcon}>
+                <FaTwitter />
+              </a>
+              <a href="#" title="Instagram" className={styles.socialIcon}>
+                <FaInstagram />
+              </a>
+              <a href="#" title="LinkedIn" className={styles.socialIcon}>
+                <FaLinkedin />
+              </a>
+            </div>
+          </div>
 
-        <div className={styles.right}>
-          <h3>Contact</h3>
-          <p>Email: drive.deals.pk@gmail.com</p>
-          <p>Phone: +92 307 2003111</p>
-          <p>Address: Lahore, Pakistan</p>
+          {/* Quick Links */}
+          <div className={styles.section}>
+            <h3>Quick Links</h3>
+            <ul className={styles.linksList}>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/BrowseCars">Browse Cars</a>
+              </li>
+              {loggedInUserId ? (
+                <li>
+                  <a href="/myAds">Post an Ad</a>
+                </li>
+              ) : (
+                <li>
+                  <a href="/login">Post an Ad</a>
+                </li>
+              )}
+              <li>
+                <a href="/AboutUs">About Us</a>
+              </li>
+              <li>
+                <a href="/myBids">My Bids</a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div className={styles.section}>
+            <h3>Contact Us</h3>
+            <div className={styles.contactItem}>
+              <FaEnvelope className={styles.contactIcon} />
+              <div>
+                <p className={styles.label}>Email</p>
+                <a href="mailto:drive.deals.pk@gmail.com">drive.deals.pk@gmail.com</a>
+              </div>
+            </div>
+            <div className={styles.contactItem}>
+              <FaPhone className={styles.contactIcon} />
+              <div>
+                <p className={styles.label}>Phone</p>
+                <a href="tel:+923072003111">+92 307 2003111</a>
+              </div>
+            </div>
+            <div className={styles.contactItem}>
+              <FaMapMarkerAlt className={styles.contactIcon} />
+              <div>
+                <p className={styles.label}>Location</p>
+                <p>Lahore, Pakistan</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Company Info */}
+          <div className={styles.section}>
+            <h3>Legal</h3>
+            <ul className={styles.linksList}>
+              <li>
+                <a href="#privacy">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#terms">Terms & Conditions</a>
+              </li>
+              <li>
+                <a href="#faq">FAQ</a>
+              </li>
+              <li>
+                <a href="#support">Support</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div className={styles.bottom}>
-        <p>© {new Date().getFullYear()} DriveDeals. All rights reserved.</p>
+      {/* Bottom Footer */}
+      <div className={styles.bottomSection}>
+        <p>&copy; {new Date().getFullYear()} DriveDeals. All rights reserved.</p>
+        <p>Designed with <span className={styles.heart}>❤</span> for Pakistani car enthusiasts</p>
       </div>
     </footer>
   );
