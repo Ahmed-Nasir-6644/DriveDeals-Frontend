@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // react-router-dom
 import styles from "../styles/MyAds.module.css"; // adjust path if needed
-import { FaTimes, FaCar, FaGasPump, FaMapMarkerAlt, FaImages, FaCheckCircle, FaCoins } from "react-icons/fa";
+import { FaTimes, FaCar, FaGasPump, FaMapMarkerAlt, FaImages, FaCheckCircle, FaCoins, FaExclamationCircle, FaInfoCircle } from "react-icons/fa";
 
 // Enum placeholders
 const FuelTypes = ["Petrol", "Diesel", "Hybrid", "Electric"];
@@ -33,6 +33,12 @@ interface Ad {
   owner: { id: number; first_name: string; last_name: string };
 }
 
+interface Toast {
+  id: string;
+  type: "success" | "error" | "warning" | "info";
+  message: string;
+}
+
 export default function MyAdsPage() {
   const [ads, setAds] = useState<Ad[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -48,6 +54,7 @@ export default function MyAdsPage() {
   const [newPrice, setNewPrice] = useState<number>(0);
   const [priceLoading, setPriceLoading] = useState(false);
   const [priceError, setPriceError] = useState("");
+  const [toasts, setToasts] = useState<Toast[]>([]);
 
   const [newAd, setNewAd] = useState({
     make: "",
@@ -100,6 +107,22 @@ export default function MyAdsPage() {
       })
       .catch((err) => console.error("Error fetching ads:", err));
   }, []);
+
+  // Toast notification function
+  const showToast = (message: string, type: "success" | "error" | "warning" | "info" = "info") => {
+    const id = Date.now().toString();
+    const toast: Toast = { id, message, type };
+    setToasts((prev) => [...prev, toast]);
+
+    // Auto-dismiss after 3 seconds
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 3000);
+  };
+
+  const dismissToast = (id: string) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  };
 
   const filteredAds = ads.filter((ad) => {
     const car = `${ad.make}${ad.model} ${ad.variant}`;
@@ -179,7 +202,10 @@ export default function MyAdsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    if (!token) return alert("You must be logged in to create an ad");
+    if (!token) {
+      showToast("You must be logged in to create an ad", "warning");
+      return;
+    }
 
     setAdCreationLoading(true);
     try {
@@ -241,9 +267,9 @@ export default function MyAdsPage() {
     if (e.target.files) {
       const files = Array.from(e.target.files);
       
-      // Limit to 10 images maximum
-      if (files.length > 10) {
-        alert("Maximum 10 images allowed");
+      // Limit to 7 images maximum
+      if (files.length > 7) {
+        showToast("Maximum 7 images allowed", "warning");
         return;
       }
 
@@ -252,7 +278,7 @@ export default function MyAdsPage() {
       const invalidFiles = files.filter(f => f.size > maxFileSize);
       
       if (invalidFiles.length > 0) {
-        alert(`Some files exceed 5MB limit. Please compress your images.`);
+        showToast("Some files exceed 5MB limit. Please compress your images.", "warning");
         return;
       }
 
@@ -290,6 +316,61 @@ export default function MyAdsPage() {
 
   return (
     <main className={styles.container}>
+      {/* Toast Notifications */}
+      <div style={{
+        position: "fixed",
+        top: "20px",
+        right: "20px",
+        zIndex: 9999,
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        maxWidth: "400px"
+      }}>
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            style={{
+              padding: "14px 18px",
+              borderRadius: "8px",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              fontSize: "14px",
+              fontWeight: "500",
+              animation: "slideIn 0.3s ease-out",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+              backgroundColor: 
+                toast.type === "success" ? "#10b981" :
+                toast.type === "error" ? "#ef4444" :
+                toast.type === "warning" ? "#f59e0b" : "#3b82f6",
+              color: "white",
+              cursor: "pointer"
+            }}
+            onClick={() => dismissToast(toast.id)}
+          >
+            {toast.type === "success" && <FaCheckCircle size={18} />}
+            {toast.type === "error" && <FaTimes size={18} />}
+            {toast.type === "warning" && <FaExclamationCircle size={18} />}
+            {toast.type === "info" && <FaInfoCircle size={18} />}
+            <span>{toast.message}</span>
+          </div>
+        ))}
+      </div>
+
+      <style>{`
+        @keyframes slideIn {
+          from {
+            transform: translateX(400px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
+
       <section className={styles.header}>
         <h1 className={styles.title}>My Ads</h1>
         <p className={styles.subtitle}>Manage your posted ads</p>
@@ -679,7 +760,7 @@ export default function MyAdsPage() {
                   <p className={styles.sectionDescription}>Upload photos and select features</p>
 
                   <div className={styles.formGroup}>
-                    <label>Upload Car Images (min 1, max 10) *</label>
+                    <label>Upload Car Images (min 1, max 7) *</label>
                     <div className={styles.imageUploadBox}>
                       <input
                         type="file"
@@ -692,7 +773,7 @@ export default function MyAdsPage() {
                       <label htmlFor="imageInput" className={styles.imageUploadLabel}>
                         <div className={styles.uploadIcon}>📸</div>
                         <p>Click to upload or drag & drop</p>
-                        <span>JPG, PNG up to 5MB each (max 10 images)</span>
+                        <span>JPG, PNG up to 5MB each (max 7 images)</span>
                       </label>
                     </div>
 
