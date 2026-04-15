@@ -1,80 +1,129 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "../styles/Navbar.module.css"; // adjust path if needed
-import { FaUser, FaSignOutAlt } from "react-icons/fa";
+import styles from "../styles/Navbar.module.css";
+import { FaUser, FaSignOutAlt, FaHome, FaList, FaClipboardList, FaComments, FaInfoCircle } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/logo2.png";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // for mobile hamburger
+  const [menuOpen, setMenuOpen] = useState(false);
   const { email, logout } = useAuth();
 
   // Check login status
   useEffect(() => {
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, [email]);
+
+  const closeAll = () => {
+    setMenuOpen(false);
+    setDropdownOpen(false);
+  };
 
   return (
     <nav className={styles.navbar}>
       {/* Logo */}
-      <div className={styles.logo}>
-        <img src={logo} width="350" height="70" alt="DriveDeals" />
-      </div>
+      <Link to="/" className={styles.logoLink}>
+        <div className={styles.logo}>
+          <img src={logo} width="350" height="70" alt="DriveDeals" />
+        </div>
+      </Link>
 
       {/* Hamburger (mobile only) */}
-      <div className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
-        <div></div>
-        <div></div>
-        <div></div>
+      <div
+        className={`${styles.hamburger} ${menuOpen ? styles.active : ""}`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
 
       {/* Links */}
       <div className={`${styles.links} ${menuOpen ? styles.show : ""}`}>
-        <Link to='/AboutUs' className={styles.link} onClick={()=> setMenuOpen(false)}>About Us</Link>
-        <Link to="/" className={styles.link} onClick={() => setMenuOpen(false)}>Home</Link>
-        <Link to="/BrowseCars" className={styles.link} onClick={() => setMenuOpen(false)}>Browse Cars</Link>
-        
+        <Link
+          to="/"
+          className={`${styles.link} ${styles.linkWithIcon}`}
+          onClick={closeAll}
+        >
+          <FaHome /> Home
+        </Link>
+        <Link
+          to="/AboutUs"
+          className={`${styles.link} ${styles.linkWithIcon}`}
+          onClick={closeAll}
+        >
+          <FaInfoCircle /> About Us
+        </Link>
+        <Link
+          to="/BrowseCars"
+          className={`${styles.link} ${styles.linkWithIcon}`}
+          onClick={closeAll}
+        >
+          <FaList /> Browse Cars
+        </Link>
 
         {isLoggedIn && (
           <>
-            <Link to="/myBids" className={styles.link} onClick={() => setMenuOpen(false)}>My Bids</Link>
-            <Link to="/MyAds" className={styles.link} onClick={() => setMenuOpen(false)}>My Ads</Link>
-            <Link to ="/chat-list" className={styles.link} onClick={()=>setMenuOpen(false)}>Chat List</Link>
+            <Link
+              to="/myBids"
+              className={`${styles.link} ${styles.linkWithIcon}`}
+              onClick={closeAll}
+            >
+              <FaClipboardList /> My Bids
+            </Link>
+            <Link
+              to="/MyAds"
+              className={`${styles.link} ${styles.linkWithIcon}`}
+              onClick={closeAll}
+            >
+              <FaList /> My Ads
+            </Link>
+            <Link
+              to="/chat-list"
+              className={`${styles.link} ${styles.linkWithIcon}`}
+              onClick={closeAll}
+            >
+              <FaComments /> Chat
+            </Link>
           </>
         )}
 
         {!isLoggedIn ? (
-          <Link to="/login" className={styles.login_link} onClick={() => setMenuOpen(false)}>Login</Link>
+          <Link to="/login" className={styles.loginLink} onClick={closeAll}>
+            <FaUser /> Login
+          </Link>
         ) : (
           <div className={styles.profileMenu}>
             <button
               className={styles.profileButton}
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              aria-label="Toggle menu"
+              aria-label="Toggle profile menu"
             >
-              <FaUser size={18}/> Profile
+              <FaUser /> Profile
             </button>
             {dropdownOpen && (
               <div className={styles.dropdown}>
-                <Link to="/profile" className={styles.dropdownItem} onClick={() => {setMenuOpen(false);
-                  setDropdownOpen(!dropdownOpen);
-                }} >
+                <Link
+                  to="/profile"
+                  className={styles.dropdownItem}
+                  onClick={closeAll}
+                >
                   <FaUser /> My Profile
                 </Link>
                 <div className={styles.dropdownDivider}></div>
-                <Link to="/"
-                  className={`${styles.dropdownItem} ${styles.logout}`}
+                <button
+                  className={`${styles.dropdownItem} ${styles.logoutItem}`}
                   onClick={() => {
                     logout();
                     setIsLoggedIn(false);
-                    setMenuOpen(false);
+                    closeAll();
                   }}
                 >
                   <FaSignOutAlt /> Logout
-                </Link>
+                </button>
               </div>
             )}
           </div>
