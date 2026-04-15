@@ -47,7 +47,7 @@ const ChatList: React.FC = () => {
   // Initialize socket connection on component mount
   useEffect(() => {
     const isProduction = import.meta.env.VITE_BACKEND_URL?.includes('.vercel.app');
-    const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
+    const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
       transports: isProduction ? ['polling', 'websocket'] : ['websocket', 'polling'],
       reconnection: true,
       reconnectionDelay: 1000,
