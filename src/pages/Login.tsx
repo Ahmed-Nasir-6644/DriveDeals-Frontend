@@ -300,7 +300,9 @@ const Login: React.FC = () => {
         localStorage.setItem("token", data.accessToken);
         setAuthEmail(email);
         showToast("Login successful", "success");
-        navigate("/"); // redirect to home page
+        setTimeout(() => {
+          navigate("/"); // redirect to home page
+        }, 1500);
       } else {
         showToast(data.message || "OTP validation failed", "error");
       }
