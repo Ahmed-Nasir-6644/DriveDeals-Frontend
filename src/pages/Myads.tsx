@@ -77,13 +77,28 @@ export default function MyAdsPage() {
   // Fetch ads
   useEffect(() => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      console.warn("No token found, skipping fetch");
+      return;
+    }
     fetch(`${import.meta.env.VITE_BACKEND_URL}/ads/get/adsByOwner`, {
       method: "GET",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     })
-      .then((res) => res.json())
-      .then((data) => setAds(data))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to fetch ads: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setAds(data);
+        } else {
+          console.error("Unexpected response format:", data);
+        }
+      })
+      .catch((err) => console.error("Error fetching ads:", err));
   }, []);
 
   const filteredAds = ads.filter((ad) => {
