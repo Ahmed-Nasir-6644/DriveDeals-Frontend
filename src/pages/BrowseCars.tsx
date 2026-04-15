@@ -569,10 +569,8 @@ export default function BrowseCars() {
                 </p>
 
                 <p className={styles.location}>
-                  📍 {ad.location}, Registered in {ad.registered_in}
+                  📍 {ad.location}
                 </p>
-
-                <p className={styles.desc}>{ad.description}</p>
 
                 <Link to={`/ad/${ad.id}`} className={styles.button}>
                   View Details
