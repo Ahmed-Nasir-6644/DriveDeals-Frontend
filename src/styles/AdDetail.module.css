@@ -208,9 +208,9 @@
 }
 
 .description {
-    border: 1px solid #444;
-    padding: 20px;
-  margin: 1.5rem 19rem 0rem;
+  border: 1px solid #444;
+  padding: 20px;
+  margin: 1.5rem auto;
   color: #444;
   line-height: 1.5;
   background: #f9f9f9;
@@ -222,8 +222,8 @@
 .userBox {
   border-top: 1px solid #ddd;
   padding-top: 1rem;
-  margin: 1.5rem 10rem 0rem;
-}
+  margin: 1.5rem auto;
+  max-width: calc(100% - 40px);
 
 .subtitle {
   font-size: 1.2rem;
@@ -304,7 +304,7 @@
 .details2 {
   border: 1px solid #444;
   padding: 20px;
-  margin: 1.5rem 19rem 0rem;
+  margin: 1.5rem auto;
   color: #444;
   line-height: 1.6;
   background: #f9f9f9;
@@ -330,7 +330,7 @@
 .details3 {
   border: 1px solid #444;
   padding: 20px;
-  margin: 1.5rem 19rem 0rem;
+  margin: 1.5rem auto;
   color: #444;
   line-height: 1.6;
   background: #f9f9f9;
@@ -407,11 +407,11 @@
 /* 📱 Mobile Adjustments */
 @media (max-width: 768px) {
   .header {
-    padding: 3rem 1rem;
+    padding: 2.5rem 1rem;
   }
 
   .title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   .price {
@@ -424,6 +424,24 @@
     padding-left: 16px;
   }
 
+  .details2 {
+    margin: 1rem;
+    padding: 15px;
+  }
+
+  .details2 li {
+    flex: 1 1 calc(50% - 10px);
+  }
+
+  .details3 {
+    margin: 1rem;
+    padding: 15px;
+  }
+
+  .details3 li {
+    flex: 1 1 calc(50% - 10px);
+  }
+
   .description {
     margin: 1rem;
     padding: 15px;
@@ -431,7 +449,7 @@
 
   .userBox {
     margin: 1rem;
-    padding-top: 0.8rem;
+    padding: 12px 15px;
   }
 
   .table td {
@@ -443,27 +461,192 @@
 
   .table tr {
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 6px;
+  }
+
+  .bidSection {
+    margin: 1rem;
+    padding: 12px;
+  }
+
+  .bidHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .bidHeader h2 {
+    font-size: 1.1rem;
+  }
+
+  .bidContent {
+    flex-direction: column;
+  }
+
+  .topBids {
+    flex: 1 1 100%;
+  }
+
+  .placeBid {
+    flex: 1 1 100%;
+  }
+
+  .bidsTable th,
+  .bidsTable td {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  .pdfButton {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 480px) {
+  .header {
+    padding: 1.5rem 1rem;
+  }
+
   .title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
   }
 
   .price {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+  }
+
+  .newBidText {
+    font-size: 1rem;
+    padding: 0.5em 1.5em;
+  }
+
+  .auctionEndedTitle {
+    font-size: 1.5rem;
+  }
+
+  .winningBid {
+    font-size: 1.8rem;
+  }
+
+  .details {
+    margin: 0.75rem;
+    padding: 10px;
+    padding-left: 12px;
+  }
+
+  .details2 {
+    margin: 0.75rem;
+    padding: 10px;
+  }
+
+  .details2 li {
+    flex: 1 1 100%;
+    padding: 6px;
+  }
+
+  .details3 {
+    margin: 0.75rem;
+    padding: 10px;
+  }
+
+  .details3 li {
+    flex: 1 1 100%;
+    padding: 6px;
+  }
+
+  .description {
+    margin: 0.75rem;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .userBox {
+    margin: 0.75rem;
+    padding: 10px 12px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .userBox p {
+    font-size: 0.9rem;
+  }
+
+  .date {
+    font-size: 0.8rem;
   }
 
   .message {
+    font-size: 0.95rem;
+    margin: 1rem 0.5rem;
+  }
+
+  .bidSection {
+    margin: 0.75rem;
+    padding: 10px;
+  }
+
+  .bidHeader h2 {
     font-size: 1rem;
+  }
+
+  .timer {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  .bidContent {
+    gap: 10px;
+  }
+
+  .topBids h3,
+  .placeBid h3 {
+    font-size: 0.95rem;
+  }
+
+  .minNote {
+    font-size: 0.85rem;
+  }
+
+  .bidInput,
+  .bidButton {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .bidsTable th,
+  .bidsTable td {
+    padding: 6px;
+    font-size: 0.75rem;
+  }
+
+  .pdfButton {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+  }
+
+  .formRow {
+    flex-direction: column;
+  }
+
+  .error,
+  .success {
+    font-size: 0.85rem;
   }
 }
 
 /* Bidding section styles */
 .bidSection {
-  margin: 1.5rem 19rem 2rem;
+  margin: 1.5rem auto 2rem;
+  max-width: calc(100% - 40px);
   padding: 18px;
   background: linear-gradient(180deg, #ffffff, #f7fbff);
   border: 1px solid #e6eef9;
@@ -623,7 +806,8 @@
 
 /* Recommendations Section */
 .recommendationsSection {
-  margin: 2rem 19rem;
+  margin: 2rem auto;
+  max-width: calc(100% - 40px);
   padding: 20px;
   background: #f9f9f9;
   border-radius: 8px;
