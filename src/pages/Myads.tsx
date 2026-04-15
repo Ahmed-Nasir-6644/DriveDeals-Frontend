@@ -270,6 +270,9 @@ export default function MyAdsPage() {
       // Limit to 7 images maximum
       if (files.length > 7) {
         showToast("Maximum 7 images allowed", "warning");
+        // Reset the input field so user can try again
+        e.target.value = "";
+        setImagePreviews([]);
         return;
       }
 
@@ -279,6 +282,9 @@ export default function MyAdsPage() {
       
       if (invalidFiles.length > 0) {
         showToast("Some files exceed 5MB limit. Please compress your images.", "warning");
+        // Reset the input field so user can try again
+        e.target.value = "";
+        setImagePreviews([]);
         return;
       }
 
