@@ -33,7 +33,7 @@ const ChatPage: React.FC = () => {
   const [receiverData, setReceiverData] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isProduction, setIsProduction] = useState(false);
-  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const pollingIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastMessageCountRef = useRef(0);
 
   const chatBoxRef = useRef<HTMLDivElement>(null);
