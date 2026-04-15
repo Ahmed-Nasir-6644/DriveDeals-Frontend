@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "../styles/HomePage.module.css";
+import { useToast } from "../hooks/useToast";
+import { ToastContainer } from "../components/ToastContainer";
 
 interface Ad {
   id: number;
@@ -16,6 +18,15 @@ const HomePage: React.FC = () => {
   const [recentAds, setRecentAds] = useState<Ad[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const location = useLocation();
+  const { toasts, showToast, dismissToast } = useToast();
+
+  // Show login success message if coming from login
+  useEffect(() => {
+    if (location.state && (location.state as any).showLoginSuccess) {
+      showToast("Login successful", "success");
+    }
+  }, [location.state]);
 
   // Scroll to top on component mount
   useEffect(() => {
@@ -70,6 +81,7 @@ const HomePage: React.FC = () => {
 
   return (
     <main className={styles.container}>
+      <ToastContainer toasts={toasts} dismissToast={dismissToast} />
       {/* HERO HEADER */}
       <section className={styles.header}>
         <div className={styles.headerContent}>
