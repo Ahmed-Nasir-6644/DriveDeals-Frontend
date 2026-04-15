@@ -224,6 +224,7 @@
   padding-top: 1rem;
   margin: 1.5rem auto;
   max-width: calc(100% - 40px);
+}
 
 .subtitle {
   font-size: 1.2rem;
