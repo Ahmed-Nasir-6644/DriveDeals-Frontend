@@ -6,6 +6,8 @@ import styles from "../styles/Login.module.css";
 import logo from "../assets/logo.png"
 import { useAuth } from "../context/AuthContext";
 import { FaTimes, FaSpinner } from "react-icons/fa";
+import { useToast } from "../hooks/useToast";
+import { ToastContainer } from "../components/ToastContainer";
 
 const ForgotPasswordModal = memo(function ForgotPasswordModal({
   isOpen,
@@ -253,6 +255,7 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { setEmail: setAuthEmail } = useAuth();
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const { toasts, showToast, dismissToast } = useToast();
 
   // Step 1: Login with email + password
   const handleLoginSetup = async (e: React.FormEvent) => {
@@ -270,11 +273,11 @@ const Login: React.FC = () => {
         setTempToken(data.tempToken);
         setStep("otp");
       } else {
-        alert(data.message ?? "Login failed");
+        showToast(data.message ?? "Login failed", "error");
       }
     } catch (error: unknown) {
-      if (error instanceof Error) alert(error.message);
-      else alert("Something went wrong");
+      if (error instanceof Error) showToast(error.message, "error");
+      else showToast("Something went wrong", "error");
       console.log(error);
     } finally {
       setLoading(false);
@@ -296,14 +299,14 @@ const Login: React.FC = () => {
       if (res.ok) {
         localStorage.setItem("token", data.accessToken);
         setAuthEmail(email);
-        alert("Login successful");
+        showToast("Login successful", "success");
         navigate("/"); // redirect to home page
       } else {
-        alert(data.message || "OTP validation failed");
+        showToast(data.message || "OTP validation failed", "error");
       }
     } catch (error: unknown) {
-      if (error instanceof Error) alert(error.message);
-      else alert("Something went wrong");
+      if (error instanceof Error) showToast(error.message, "error");
+      else showToast("Something went wrong", "error");
       console.log(error);
     } finally {
       setLoading(false);
@@ -312,6 +315,8 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <ToastContainer toasts={toasts} dismissToast={dismissToast} />
+      
       <div className={styles.card}>
         <div className={styles.cardContent}>
           {/* Left: Logo */}

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // react-router-dom
 import styles from "../styles/MyAds.module.css"; // adjust path if needed
-import { FaTimes, FaCar, FaGasPump, FaMapMarkerAlt, FaImages, FaCheckCircle, FaCoins, FaExclamationCircle, FaInfoCircle } from "react-icons/fa";
+import { FaTimes, FaCar, FaGasPump, FaMapMarkerAlt, FaImages, FaCheckCircle, FaCoins } from "react-icons/fa";
+import { useToast } from "../hooks/useToast";
+import { ToastContainer } from "../components/ToastContainer";
 
 // Enum placeholders
 const FuelTypes = ["Petrol", "Diesel", "Hybrid", "Electric"];
@@ -33,12 +35,6 @@ interface Ad {
   owner: { id: number; first_name: string; last_name: string };
 }
 
-interface Toast {
-  id: string;
-  type: "success" | "error" | "warning" | "info";
-  message: string;
-}
-
 export default function MyAdsPage() {
   const [ads, setAds] = useState<Ad[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -60,7 +56,7 @@ export default function MyAdsPage() {
     make: "",
     model: "",
     color: "",
-    engine_capacity: 0,
+    engi{ toasts, showToast, dismissToast } = useToast(
     variant: "",
     fuel_type: FuelTypes[0],
     transmission: "",
@@ -107,22 +103,6 @@ export default function MyAdsPage() {
       })
       .catch((err) => console.error("Error fetching ads:", err));
   }, []);
-
-  // Toast notification function
-  const showToast = (message: string, type: "success" | "error" | "warning" | "info" = "info") => {
-    const id = Date.now().toString();
-    const toast: Toast = { id, message, type };
-    setToasts((prev) => [...prev, toast]);
-
-    // Auto-dismiss after 3 seconds
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 3000);
-  };
-
-  const dismissToast = (id: string) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
-  };
 
   const filteredAds = ads.filter((ad) => {
     const car = `${ad.make}${ad.model} ${ad.variant}`;
@@ -322,60 +302,7 @@ export default function MyAdsPage() {
 
   return (
     <main className={styles.container}>
-      {/* Toast Notifications */}
-      <div style={{
-        position: "fixed",
-        top: "20px",
-        right: "20px",
-        zIndex: 9999,
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        maxWidth: "400px"
-      }}>
-        {toasts.map((toast) => (
-          <div
-            key={toast.id}
-            style={{
-              padding: "14px 18px",
-              borderRadius: "8px",
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              fontSize: "14px",
-              fontWeight: "500",
-              animation: "slideIn 0.3s ease-out",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-              backgroundColor: 
-                toast.type === "success" ? "#10b981" :
-                toast.type === "error" ? "#ef4444" :
-                toast.type === "warning" ? "#f59e0b" : "#3b82f6",
-              color: "white",
-              cursor: "pointer"
-            }}
-            onClick={() => dismissToast(toast.id)}
-          >
-            {toast.type === "success" && <FaCheckCircle size={18} />}
-            {toast.type === "error" && <FaTimes size={18} />}
-            {toast.type === "warning" && <FaExclamationCircle size={18} />}
-            {toast.type === "info" && <FaInfoCircle size={18} />}
-            <span>{toast.message}</span>
-          </div>
-        ))}
-      </div>
-
-      <style>{`
-        @keyframes slideIn {
-          from {
-            transform: translateX(400px);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
+      <ToastContainer toasts={toasts} dismissToast={dismissToast} />
 
       <section className={styles.header}>
         <h1 className={styles.title}>My Ads</h1>

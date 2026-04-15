@@ -4,6 +4,8 @@ import styles from "../styles/AdDetail.module.css";
 import ImageSlider from "../components/ImageSlider";
 import ChatButton from "../components/chatButton";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../hooks/useToast";
+import { ToastContainer } from "../components/ToastContainer";
 // socket client
 import { io, Socket } from "socket.io-client";
 
@@ -69,6 +71,7 @@ export default function AdDetailPage() {
 
   const [loggedInUserId, setLoggedInUserId] = useState<number | null>(null);
   const { email } = useAuth();
+  const { toasts, showToast, dismissToast } = useToast();
   const [auctionEnded, setAuctionEnded] = useState(false);
   const [placingBid, setPlacingBid] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -278,7 +281,10 @@ export default function AdDetailPage() {
   async function handlePlaceBid(e: React.FormEvent) {
     e.preventDefault();
     const token = localStorage.getItem("token");
-    if (!token) return alert("You must be logged in to place a bid");
+    if (!token) {
+      showToast("You must be logged in to place a bid", "warning");
+      return;
+    }
     
     if (!ad) return;
     
@@ -451,6 +457,8 @@ Posted On: ${new Date(ad.created_at).toDateString()}
 
   return (
     <div className={styles.container}>
+      <ToastContainer toasts={toasts} dismissToast={dismissToast} />
+      
       {/* Header */}
       <section className={styles.header}>
         <h1 className={styles.title}>

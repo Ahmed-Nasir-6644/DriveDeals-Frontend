@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Login.module.css"; // can reuse the same CSS
 import logo from "../assets/logo.png"
+import { useToast } from "../hooks/useToast";
+import { ToastContainer } from "../components/ToastContainer";
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
@@ -13,10 +15,11 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { toasts, showToast, dismissToast } = useToast();
 
   const handleRegisterSetup = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+    ifshowToast("Passwords do not match", "warningd) {
       alert("Passwords do not match");
       return;
     }
@@ -32,14 +35,14 @@ const Signup: React.FC = () => {
 
       const data = await res.json();
       if (res.ok) {
-        alert("A verification link has been sent to your email.");
+        showToast("A verification link has been sent to your email.", "success");
         navigate("/login");
       } else {
-        alert(data.message ?? "Registration failed");
+        showToast(data.message ?? "Registration failed", "error");
       }
     } catch (error: unknown) {
-      if (error instanceof Error) alert(error.message);
-      else alert("Something went wrong");
+      if (error instanceof Error) showToast(error.message, "error");
+      else showToast("Something went wrong", "error");
       console.log(error);
     } finally {
       setLoading(false);
@@ -48,6 +51,8 @@ const Signup: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <ToastContainer toasts={toasts} dismissToast={dismissToast} />
+      
       <div className={styles.card}>
         <div className={styles.cardContent}>
           {/* Left: Logo */}

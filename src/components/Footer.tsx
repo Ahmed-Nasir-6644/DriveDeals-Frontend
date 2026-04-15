@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/Footer.module.css";
 import { useAuth } from "../context/AuthContext";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaArrowRight } from "react-icons/fa";
+import { useToast } from "../hooks/useToast";
+import { ToastContainer } from "./ToastContainer";
 
 const Footer: React.FC = () => {
   const { email } = useAuth();
   const [loggedInUserId, setLoggedInUserId] = useState<number | null>(null);
   const [newsletter, setNewsletter] = useState("");
+  const { toasts, showToast, dismissToast } = useToast();
 
   // Fetch logged-in user ID
   useEffect(() => {
@@ -20,13 +23,15 @@ const Footer: React.FC = () => {
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Newsletter subscription logic here
+    showToast(`Subscribed with ${newsletter}`, "success"
     alert(`Subscribed with ${newsletter}`);
     setNewsletter("");
   };
 
   return (
     <footer className={styles.footer}>
+      <ToastContainer toasts={toasts} dismissToast={dismissToast} />
+      
       {/* Newsletter Section */}
       <section className={styles.newsletterSection}>
         <div className={styles.newsletterContent}>
