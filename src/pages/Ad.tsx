@@ -90,7 +90,8 @@ export default function AdDetailPage() {
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
-      reconnectionAttempts: 10,
+      reconnectionAttempts: 5,
+      timeout: 10000, // 10 second timeout
     });
     setSocket(newSocket);
     return () => {
