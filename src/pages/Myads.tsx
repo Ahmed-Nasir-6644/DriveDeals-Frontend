@@ -50,13 +50,13 @@ export default function MyAdsPage() {
   const [newPrice, setNewPrice] = useState<number>(0);
   const [priceLoading, setPriceLoading] = useState(false);
   const [priceError, setPriceError] = useState("");
-  const [toasts, setToasts] = useState<Toast[]>([]);
+  const { toasts, showToast, dismissToast } = useToast();
 
   const [newAd, setNewAd] = useState({
     make: "",
     model: "",
     color: "",
-    engi{ toasts, showToast, dismissToast } = useToast(
+    engine_capacity: 0,
     variant: "",
     fuel_type: FuelTypes[0],
     transmission: "",

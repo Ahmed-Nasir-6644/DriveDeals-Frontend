@@ -23,8 +23,7 @@ const Footer: React.FC = () => {
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    showToast(`Subscribed with ${newsletter}`, "success"
-    alert(`Subscribed with ${newsletter}`);
+    showToast(`Subscribed with ${newsletter}`, "success");
     setNewsletter("");
   };
 

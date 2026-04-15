@@ -19,8 +19,8 @@ const Signup: React.FC = () => {
 
   const handleRegisterSetup = async (e: React.FormEvent) => {
     e.preventDefault();
-    ifshowToast("Passwords do not match", "warningd) {
-      alert("Passwords do not match");
+    if (password !== confirmPassword) {
+      showToast("Passwords do not match", "warning");
       return;
     }
 
