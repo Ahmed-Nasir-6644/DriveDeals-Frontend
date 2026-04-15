@@ -81,8 +81,8 @@
 
 .newsletterButton {
   padding: 0.9rem 2rem;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #090979;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+  color: white;
   border: none;
   border-radius: 8px;
   font-weight: 700;
@@ -93,13 +93,13 @@
   align-items: center;
   gap: 0.5rem;
   white-space: nowrap;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }
 
 .newsletterButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  background: linear-gradient(135deg, #ff5252 0%, #ff6b6b 100%);
 }
 
 /* ==================== MAIN FOOTER CONTENT ==================== */
@@ -153,7 +153,7 @@
   font-size: 1.8rem;
   font-weight: 900;
   margin: 0 0 1rem 0;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -188,11 +188,11 @@
 }
 
 .socialIcon:hover {
-  background: linear-gradient(135deg, #ffd700, #ffed4e);
-  color: #090979;
-  border-color: #ffd700;
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+  border-color: #ff6b6b;
   transform: translateY(-3px) scale(1.1);
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
 }
 
 /* Section Headings */
@@ -211,7 +211,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #ffd700, #ffed4e);
+  background: linear-gradient(90deg, #ff6b6b, #ff5252);
   animation: expandWidth 0.6s ease-out forwards;
 }
 
@@ -250,7 +250,7 @@
 }
 
 .linksList a:hover {
-  color: #ffd700;
+  color: #ff6b6b;
   transform: translateX(5px);
 }
 
@@ -277,7 +277,7 @@
 
 .contactIcon {
   font-size: 1.5rem;
-  color: #ffd700;
+  color: #ff6b6b;
   flex-shrink: 0;
   margin-top: 3px;
 }
@@ -303,7 +303,7 @@
 }
 
 .contactItem a:hover {
-  color: #ffd700;
+  color: #ff6b6b;
 }
 
 /* ==================== BOTTOM SECTION ==================== */

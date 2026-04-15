@@ -75,7 +75,7 @@
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #ffd700, #ffed4e);
+  background: linear-gradient(90deg, #ff6b6b, #ff5252);
   transition: all 0.3s ease;
   border-radius: 2px;
   transform: translateX(-50%);
@@ -96,7 +96,7 @@
 }
 
 .link:hover svg {
-  color: #ffd700;
+  color: #ff6b6b;
 }
 
 /* ==================== LOGIN BUTTON ==================== */
@@ -107,13 +107,13 @@
   gap: 0.6rem;
   padding: 0.75rem 1.8rem;
   border-radius: 25px;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #090979;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+  color: white;
   font-weight: 700;
   text-decoration: none;
   transition: all 0.3s ease;
   font-size: 0.95rem;
-  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
   border: none;
   cursor: pointer;
   white-space: nowrap;
@@ -121,8 +121,8 @@
 
 .loginLink:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  background: linear-gradient(135deg, #ff5252 0%, #ff6b6b 100%);
 }
 
 .loginLink svg {
@@ -166,7 +166,7 @@
 
 .profileButton svg {
   font-size: 1.05rem;
-  color: #ffd700;
+  color: #ff6b6b;
 }
 
 /* Dropdown menu */
