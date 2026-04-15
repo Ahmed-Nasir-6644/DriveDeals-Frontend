@@ -5,15 +5,7 @@ import ImageSlider from "../components/ImageSlider";
 import ChatButton from "../components/chatButton";
 import { useAuth } from "../context/AuthContext";
 // socket client
-import { io } from "socket.io-client";
-const isProduction = import.meta.env.VITE_BACKEND_URL?.includes('.vercel.app');
-const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
-  transports: isProduction ? ['polling', 'websocket'] : ['websocket', 'polling'],
-  reconnection: true,
-  reconnectionDelay: 1000,
-  reconnectionDelayMax: 5000,
-  reconnectionAttempts: 10,
-});
+import { io, Socket } from "socket.io-client";
 
 interface Ad {
   id: number;
@@ -79,6 +71,7 @@ export default function AdDetailPage() {
   const { email } = useAuth();
   const [auctionEnded, setAuctionEnded] = useState(false);
   const [placingBid, setPlacingBid] = useState(false);
+  const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
     if (!email) return;
@@ -88,6 +81,22 @@ export default function AdDetailPage() {
       .then((user) => setLoggedInUserId(user.id))
       .catch((err) => console.error("Error fetching logged-in user:", err));
   }, [email]);
+
+  // Initialize socket connection on component mount
+  useEffect(() => {
+    const isProduction = import.meta.env.VITE_BACKEND_URL?.includes('.vercel.app');
+    const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
+      transports: isProduction ? ['polling', 'websocket'] : ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: 10,
+    });
+    setSocket(newSocket);
+    return () => {
+      newSocket.close();
+    };
+  }, []);
 
   useEffect(() => {
     async function fetchAd() {
@@ -187,7 +196,7 @@ export default function AdDetailPage() {
       }
     }
     function joinRoom() {
-      socket.emit("joinRoom", { adId: id });
+      socket?.emit("joinRoom", { adId: id });
     }
     if (id) {
       fetchAd();
@@ -197,6 +206,7 @@ export default function AdDetailPage() {
   }, [id]);
 
   useEffect(() => {
+    if (!socket) return;
     function handleNewBid(_bid: {
       user: string;
       amount: number;
@@ -212,7 +222,7 @@ export default function AdDetailPage() {
     return () => {
       socket.off("new_bid", handleNewBid);
     };
-  }, []);
+  }, [socket]);
 
   // Setup a default auction end time: try ad.auction_ends_at else 24 hours after created_at
   useEffect(() => {
@@ -317,7 +327,7 @@ export default function AdDetailPage() {
       setSuccess("Bid placed successfully");
       setNewBid("");
       // Update bids
-      socket.emit("place_bid", {
+      socket?.emit("place_bid", {
         adId: Number(id),
         user,
         amount: val,

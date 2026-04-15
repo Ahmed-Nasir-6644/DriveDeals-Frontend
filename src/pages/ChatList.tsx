@@ -2,15 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/ChatList.module.css";
 import { useAuth } from "../context/AuthContext";
-import {io} from "socket.io-client"
-const isProduction = import.meta.env.VITE_BACKEND_URL?.includes('.vercel.app');
-const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
-  transports: isProduction ? ['polling', 'websocket'] : ['websocket', 'polling'],
-  reconnection: true,
-  reconnectionDelay: 1000,
-  reconnectionDelayMax: 5000,
-  reconnectionAttempts: 10,
-})
+import {io, Socket} from "socket.io-client"
 
 interface Chat {
   chatId: string;
@@ -45,10 +37,27 @@ const ChatList: React.FC = () => {
   const [userId, setUserId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [userCache, setUserCache] = useState<Record<number, User>>({});
+  const [socket, setSocket] = useState<Socket | null>(null);
 
   // Scroll to top on component mount
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Initialize socket connection on component mount
+  useEffect(() => {
+    const isProduction = import.meta.env.VITE_BACKEND_URL?.includes('.vercel.app');
+    const newSocket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
+      transports: isProduction ? ['polling', 'websocket'] : ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: 10,
+    });
+    setSocket(newSocket);
+    return () => {
+      newSocket.close();
+    };
   }, []);
 
   // Utility function to format relative time (handles GMT from database)
@@ -153,7 +162,7 @@ const ChatList: React.FC = () => {
         chatList.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
         setChats(chatList);
         chatList.forEach(chat => {
-          socket.emit("join_chat_room", chat.chatId);
+          socket?.emit("join_chat_room", chat.chatId);
         });
         setLoading(false);
       })
@@ -202,6 +211,7 @@ const ChatList: React.FC = () => {
       });
     };
 
+    if (!socket) return;
     socket.on("receive_message", handleReceive);
 
     return () => {
